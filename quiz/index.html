@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090e1a">
+<title>Cyber Quiz — Fresh Question Sets</title>
+<style>
+:root{color-scheme:dark;--bg:#090e1a;--panel:#131b2c;--muted:#9caac2;--line:#2a3750;--yellow:#f9de58;--cyan:#63e0f5;--red:#ff8594;--green:#8aecb2;--team0:#63e0f5;--team1:#bb9dff;--team2:#ffae79;--team3:#8aecb2;font-family:Inter,Arial,Helvetica,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f5f7ff;min-width:360px}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:default}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}button{border:1px solid var(--line);border-radius:9px;background:#1b263b;color:#f5f7ff;padding:10px 15px;font-weight:700;transition:background .15s,transform .15s}button:hover:not(:disabled){background:#2b3b56}button:active:not(:disabled){transform:translateY(1px)}button:disabled{opacity:.38}.primary{background:var(--yellow);border-color:var(--yellow);color:#172034}.primary:hover:not(:disabled){background:#ffeb8c}.quiet{background:transparent}.danger{color:var(--red)}.small{font-size:13px;padding:8px 11px}.app{height:100dvh;min-height:620px;display:flex;flex-direction:column;padding:24px 32px 20px;gap:16px;max-width:2200px;margin:auto}.topbar{display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;gap:13px;align-items:center}.brand-symbol{display:grid;place-items:center;background:var(--yellow);color:#0d1524;width:46px;height:46px;border-radius:10px;font-weight:900;font-size:26px}.brand h1{margin:0;font-size:26px;letter-spacing:-.8px}.eyebrow{font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:800;color:var(--muted)}.brand .eyebrow{margin-top:4px}.actions{display:flex;gap:8px}.statusline{display:flex;align-items:center;justify-content:space-between;gap:15px;color:var(--muted);font-size:13px;min-height:27px}.progress{display:flex;align-items:center;gap:10px}.progress-track{height:5px;width:100px;background:#263146;border-radius:5px;overflow:hidden}.progress-track i{display:block;height:100%;background:var(--yellow);width:0}.notice{color:var(--yellow);font-weight:700}.board{flex:1;min-height:320px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));grid-template-rows:minmax(72px,.85fr) repeat(5,minmax(42px,1fr));gap:11px}.category{display:flex;align-items:center;justify-content:center;text-align:center;padding:9px 12px;background:#131e31;border:1px solid #293c58;border-top:3px solid var(--cyan);border-radius:10px;font-weight:800;font-size:clamp(15px,1.45vw,25px);line-height:1.13}.clue{position:relative;border:1px solid #314463;background:linear-gradient(135deg,#1a2b48,#152139);color:var(--yellow);font-size:clamp(30px,3.15vw,58px);font-weight:850;padding:5px;letter-spacing:-1px}.clue:hover:not(:disabled){background:#263e63;border-color:var(--yellow)}.clue.completed{background:#171d28;color:#697181;border-color:#272e3b;opacity:1}.clue.completed .tile-check{position:absolute;right:12px;top:10px;font-size:17px;color:#8b94a5;letter-spacing:0}.clue.live{border:2px solid var(--yellow)}.clue.live small{display:block;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--yellow)}.scorebar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.team-card{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--team-color);border-radius:10px;padding:13px 16px 11px;min-width:0}.team-heading{display:flex;justify-content:space-between;gap:8px;align-items:center}.team-name{font-size:clamp(16px,1.35vw,24px);font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--team-color)}.score-adjust{padding:3px 8px;font-size:16px;background:transparent}.team-score{font-size:clamp(30px,3vw,53px);font-variant-numeric:tabular-nums;font-weight:850;margin:3px 0 8px;letter-spacing:-1.5px}.footnote{color:var(--muted);font-size:11px;text-align:center;line-height:1.5}dialog{color:#f5f7ff;border:1px solid #394965;background:#101828;border-radius:16px;padding:0;box-shadow:0 30px 100px #0009}dialog::backdrop{background:#040812d9;backdrop-filter:blur(5px)}.question-dialog{width:calc(100vw - 48px);max-width:2000px;max-height:calc(100dvh - 225px);margin:22px auto auto;overflow:auto}.question-content{display:flex;flex-direction:column;min-height:min(570px,calc(100dvh - 245px));padding:24px 30px;gap:20px}.question-head{display:flex;align-items:center;justify-content:space-between;gap:16px}.clue-label{color:var(--cyan);font-size:16px;font-weight:800}.question-head-actions{display:flex;gap:10px;align-items:center}.question-text{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:800;letter-spacing:-.8px;line-height:1.2;font-size:clamp(31px,3.4vw,70px);padding:12px 3vw;min-height:140px;margin:0}.scoring-banner{background:#342f18;border:1px solid #786b27;color:#ffe989;border-radius:8px;text-align:center;font-weight:700;padding:10px;font-size:15px}.judge-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.judge-card{background:#192235;border:1px solid var(--line);border-top:3px solid var(--team-color);border-radius:10px;padding:10px}.judge-name{font-weight:800;color:var(--team-color);margin-bottom:9px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.judge-actions{display:flex;gap:6px}.judge-actions button{flex:1;padding:9px 5px;font-size:13px}.correct{background:#244836;color:#a2f1bb;border-color:#3a6c4b}.correct:hover:not(:disabled){background:#2f6546}.wrong{color:var(--red);border-color:#764650;background:#352633}.question-footer{display:flex;align-items:center;justify-content:space-between;gap:12px}.question-footer-actions{display:flex;gap:8px}.question-help{font-size:12px;color:var(--muted)}.modal{width:min(920px,calc(100vw - 40px));max-height:90dvh}.modal-inner{padding:25px}.modal h2{margin:0;font-size:25px;letter-spacing:-.5px}.modal-head{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:20px}.modal p{font-size:14px;color:#bbc8dc;line-height:1.6}.form-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.category-selects{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}.field{display:flex;flex-direction:column;gap:7px;font-size:12px;font-weight:700;color:#bbc8dc}.field input,.field select,.field textarea,.score-input{background:#0a1220;color:#f5f7ff;border:1px solid #3b4a61;border-radius:7px;padding:10px;width:100%;min-width:0}.field textarea{resize:vertical;line-height:1.4;min-height:90px}.section-label{font-size:13px;color:var(--cyan);letter-spacing:1px;text-transform:uppercase;font-weight:800;margin:23px 0 12px}.editor-controls{display:grid;grid-template-columns:1fr 130px;gap:12px;margin-bottom:12px}.clue-editor{display:grid;gap:10px;background:#172034;padding:16px;border-radius:10px}.editor-bottom{display:flex;justify-content:space-between;gap:15px;align-items:center;margin-top:18px}.check-field{font-size:13px;color:#bbc8dc;display:flex;gap:9px;align-items:center}.validation{color:var(--red);font-size:13px;min-height:18px;margin-top:12px}.backup-actions{display:flex;gap:8px;flex-wrap:wrap}.help-list{padding-left:22px;color:#ccd6e6;font-size:14px;line-height:1.8}.shortcut{border:1px solid #41516d;border-radius:4px;font-size:12px;padding:2px 5px;background:#202b41;color:#fff}.score-modal{width:min(420px,calc(100vw - 35px))}.score-input{font-size:30px;margin:8px 0 17px}.score-presets{display:flex;gap:8px;margin-bottom:14px}.score-presets button{flex:1}.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:100;background:#f9de58;color:#152039;border-radius:10px;padding:12px 20px;font-weight:700;font-size:14px;box-shadow:0 8px 35px #0008;max-width:90vw;text-align:center}.storage-warning{padding:8px 12px;font-size:12px;color:#ffe692;background:#332b18;border:1px solid #6e5d27;border-radius:6px}.game-over{color:var(--yellow);font-weight:800}.confirm-modal{width:min(480px,calc(100vw - 35px))}.confirm-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:25px}[hidden]{display:none!important}
+@media(min-width:1700px){.app{padding:32px 45px 22px;gap:20px}.board{gap:15px}.team-card{padding:15px 20px}.brand h1{font-size:33px}.brand-symbol{width:54px;height:54px}.question-dialog{max-height:calc(100dvh - 255px)}.question-content{min-height:calc(100dvh - 285px)}}
+@media(max-width:900px){.app{padding:15px;gap:11px}.brand h1{font-size:22px}.brand-symbol{width:37px;height:37px;font-size:22px}.actions button{padding:8px;font-size:12px}.category{font-size:14px;padding:6px}.board{gap:7px}.team-card{padding:9px}.question-dialog{width:calc(100vw - 20px);margin-top:10px;max-height:calc(100dvh - 195px)}.question-content{padding:17px;gap:14px;min-height:calc(100dvh - 220px)}.question-text{font-size:34px;padding:8px}.question-head-actions{gap:5px}.clue-label{font-size:13px}.judge-actions{flex-direction:column}.question-footer{flex-wrap:wrap}.category-selects{grid-template-columns:repeat(2,1fr)}.form-grid{grid-template-columns:repeat(2,1fr)}.question-help{display:none}}
+@media(max-width:560px){.app{height:auto;min-height:100dvh;padding:10px}.topbar{align-items:flex-start;gap:9px}.brand .eyebrow{display:none}.brand h1{font-size:18px}.brand-symbol{width:30px;height:30px;font-size:17px}.actions{flex-wrap:wrap;justify-content:flex-end;max-width:200px;gap:5px}.board{min-height:440px;grid-template-rows:95px repeat(5,60px);gap:5px}.category{font-size:11px;padding:4px}.clue{font-size:27px}.scorebar{grid-template-columns:repeat(2,1fr);gap:7px}.team-name{font-size:16px}.team-score{font-size:33px}.statusline{font-size:11px}.progress-track{display:none}.question-dialog{max-height:calc(100dvh - 30px)}.question-text{font-size:29px;min-height:140px}.question-content{min-height:unset}.question-head{align-items:flex-start}.question-head-actions{flex-wrap:wrap;justify-content:flex-end}.judge-grid{grid-template-columns:repeat(2,1fr)}.judge-actions{flex-direction:row}.question-footer-actions{flex-wrap:wrap}.question-footer-actions button{font-size:11px;padding:8px}.footnote{font-size:10px}}
+.question-dialog::backdrop{background:#04081226;backdrop-filter:none}
+.question-dialog{max-height:calc(100dvh - 285px)}.question-content{min-height:min(560px,calc(100dvh - 307px));padding:20px 26px;gap:14px}.question-text{min-height:100px}.scoring-banner{padding:12px 15px}.scoring-banner.regular{background:#182338;border-color:#354765}.stakes-title{font-size:13px;font-weight:900;letter-spacing:1.2px;margin-bottom:9px}.stakes-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}.stake-gain,.stake-loss{font-size:clamp(14px,1.3vw,23px);font-weight:850}.stake-gain{color:var(--green)}.stake-loss{color:var(--red)}.stake-neutral{font-size:13px;color:var(--muted);font-weight:700}.judge-actions{flex-direction:column}.judge-actions button{padding:7px 5px;line-height:1.15}.judge-actions button span{font-size:10px;letter-spacing:.8px;display:block;margin-bottom:3px}.judge-actions button strong{font-size:15px;display:block}.score-adjust{font-size:11px;padding:5px 7px}.score-decisions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.score-decisions button{font-size:14px;padding:14px 8px}.footnote{font-size:12px;font-weight:700}.question-help{font-size:13px}
+@media(max-width:900px){.question-dialog{max-height:calc(100dvh - 250px)}.question-content{min-height:min(560px,calc(100dvh - 270px));padding:16px;gap:12px}.judge-actions button strong{font-size:13px}.stake-gain,.stake-loss{font-size:14px}}
+@media(max-width:560px){.question-dialog{max-height:calc(100dvh - 30px)}.question-content{min-height:0}.judge-actions{flex-direction:column}.footnote{font-size:11px}.stakes-row{gap:5px;flex-direction:column}}
+.scoring-banner{background:#182338;border:1px solid #354765;color:#e4edff}.question-dialog{max-height:calc(100dvh - 205px)}.question-content{min-height:calc(100dvh - 227px)}.team-score{margin-bottom:0}
+@media(max-width:900px){.question-dialog{max-height:calc(100dvh - 195px)}.question-content{min-height:calc(100dvh - 220px)}}
+@media(max-width:560px){.question-dialog{max-height:calc(100dvh - 30px)}.question-content{min-height:0}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+.answer-panel{background:#142b24;border:2px solid #427e5c;border-radius:12px;padding:14px 20px;text-align:center}.answer-label{color:var(--green);font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}.answer-text{color:#c2ffda;font-size:clamp(30px,3.2vw,60px);font-weight:850;line-height:1.15;margin:8px 0 0;overflow-wrap:anywhere}.reveal-answer{color:var(--green);border-color:#427e5c;background:#19382a}.reveal-answer:hover:not(:disabled){background:#27533d}.question-text.with-answer{font-size:clamp(25px,2.4vw,48px);min-height:70px;padding-top:4px;padding-bottom:4px}
+</style>
+</head>
+<body>
+<main class="app">
+  <header class="topbar">
+    <div class="brand"><span class="brand-symbol" aria-hidden="true">&gt;_</span><div><h1>CYBER QUIZ</h1><div class="eyebrow">Five categories. Four teams. One winner.</div></div></div>
+    <nav class="actions" aria-label="Presenter controls"><button id="undoBtn" class="quiet small" title="Undo last action (U)">↶ Undo</button><button id="setupBtn" class="quiet small">Edit game</button><button id="helpBtn" class="quiet small">How to play</button><button id="fullResetBtn" class="danger quiet small">Reset game</button><button id="fullscreenBtn" class="primary small" title="Fullscreen (F)">⛶ Fullscreen</button></nav>
+  </header>
+  <div id="storageWarning" class="storage-warning" hidden>Automatic saving is unavailable in this browser. Use Edit game → Export backup to keep your progress.</div>
+  <div class="statusline"><div class="progress"><span id="progressText">0 / 25 answered</span><span class="progress-track" aria-hidden="true"><i id="progressFill"></i></span></div><div id="boardNotice">Choose a category and point value.</div></div>
+  <section id="board" class="board" aria-label="Question board"></section>
+  <section id="scorebar" class="scorebar" aria-label="Team scores"></section>
+  <footer class="footnote">Correct: GAIN the question’s points · Wrong: LOSE 33% · No team answers: 0 points</footer>
+</main>
+<dialog id="questionDialog" class="question-dialog" aria-labelledby="questionText">
+ <div class="question-content">
+  <div class="question-head"><div id="questionLabel" class="clue-label"></div><div class="question-head-actions"><button id="revealBtn" class="reveal-answer small" aria-controls="answerPanel" aria-expanded="false">Show answer</button><button id="backBtn" class="quiet small">Board ✕</button></div></div>
+  <div id="questionScoring" class="scoring-banner" hidden></div>
+  <p id="questionText" class="question-text"></p>
+  <section id="answerPanel" class="answer-panel" aria-live="polite" aria-atomic="true" hidden><div class="answer-label">Correct answer</div><p id="answerText" class="answer-text"></p></section>
+  <section id="judgeGrid" class="judge-grid" aria-label="Award or deduct points"></section>
+  <div class="question-footer"><span id="questionHelp" class="question-help"></span><div class="question-footer-actions"><button id="finishBtn" class="primary small">No answer · finish question</button></div></div>
+ </div>
+</dialog>
+<dialog id="setupDialog" class="modal" aria-labelledby="setupTitle"><div class="modal-inner">
+ <div class="modal-head"><h2 id="setupTitle">Edit game</h2><button id="closeSetupBtn" class="quiet small">Close ✕</button></div>
+ <p>Choose a built-in question set or mix five categories, then name your four teams. Question edits keep scores and completed questions.</p>
+ <div class="section-label">Question sets</div><div class="backup-actions"><button id="loadSetABtn" class="primary small">Start Set A</button><button id="loadSetBBtn" class="small">Start Set B</button></div><p style="font-size:12px">Each set has 25 questions. Starting a set resets scores and progress, restores its questions and keeps saved team names. Unsaved edits are discarded.</p>
+ <div class="section-label">Teams</div><div id="teamFields" class="form-grid"></div>
+ <div class="section-label">Five categories</div><div id="categoryFields" class="category-selects"></div>
+ <div class="section-label">Question editor</div><div class="editor-controls"><label class="field">Category<select id="editCategory"></select></label><label class="field">Points<select id="editValue"><option value="0">100</option><option value="1">200</option><option value="2">300</option><option value="3">400</option><option value="4">500</option></select></label></div>
+ <div class="clue-editor"><label class="field">Category title<input id="editTitle" maxlength="70"></label><label class="field">Question<textarea id="editQuestion" maxlength="700"></textarea></label><label class="field">Correct answer<input id="editAnswer" maxlength="200" placeholder="Enter the answer to enable Show answer"></label></div>
+ <div class="editor-bottom"><span class="check-field">Wrong answers deduct 33% of the question’s points. No team answers scores 0.</span><button id="saveSetupBtn" class="primary">Save changes</button></div><div id="setupValidation" class="validation" role="status"></div>
+ <div class="section-label">Game &amp; backup</div><div class="backup-actions"><button id="exportBtn" class="small">Export backup</button><button id="importBtn" class="small">Import backup</button><button id="resetBtn" class="danger small">Restart round · keep edits</button></div><input id="importInput" type="file" accept="application/json,.json" hidden>
+ <p style="font-size:12px">This file works offline. Progress is saved in this browser when available. Export a backup before moving the file to another computer. Backups include answers; keep them with the presenter.</p>
+</div></dialog>
+<dialog id="helpDialog" class="modal" aria-labelledby="helpTitle"><div class="modal-inner"><div class="modal-head"><h2 id="helpTitle">How to play</h2><button id="closeHelpBtn" class="quiet small">Close ✕</button></div>
+ <ol class="help-list"><li>Choose a category and point value. The question appears in large text, with all four team scores below.</li><li>Use your physical buttons and timer. The presenter selects the responding team and judges the answer.</li><li><strong>Correct answer:</strong> add the question’s value, from +100 to +500 points. The question is marked complete.</li><li><strong>Wrong answer or buzzing without an answer:</strong> deduct 33% of the question’s value: −33, −66, −99, −132 or −165 points. Negative scores are allowed. One other team may steal. A second wrong answer finishes the question.</li><li><strong>No team buzzes:</strong> finish the question with no score change. Passing before buzzing is free. After buzzing, a wrong answer or no answer by the deadline incurs the 33% penalty.</li><li>After buzzing ends, click <strong>Show answer</strong> to display the correct answer to everyone. The question stays open after scoring. Hide answer conceals it again; Board returns to the board. Showing an answer does not change scores.</li><li>Use the score controls to add or deduct extra points. Undo reverses the last action. Returning to the board keeps an unfinished question active.</li><li>Edit game contains Start Set A and Start Set B, each with 25 built-in questions. Starting a set resets scores and progress and keeps saved team names. You can also edit teams, categories, questions and answers. Export backup saves progress. Restart round keeps your current set and edits while clearing scores and answered questions. Reset game restores Set A, the built-in questions, default team names and zero scores.</li></ol>
+ <p><span class="shortcut">F</span> fullscreen &nbsp; <span class="shortcut">U</span> undo &nbsp; <span class="shortcut">Esc</span> close the open window</p>
+</div></dialog>
+<dialog id="scoreDialog" class="modal score-modal" aria-labelledby="scoreTitle"><div class="modal-inner"><div class="modal-head"><h2 id="scoreTitle">Adjust score</h2><button id="closeScoreBtn" class="quiet small">Close ✕</button></div><p>Choose the number of points, then select <strong>Add points</strong> or <strong>Deduct points</strong>.</p><div class="score-presets"><button data-adjust="100">100</button><button data-adjust="200">200</button><button data-adjust="500">500</button></div><form id="scoreForm"><label class="field">Number of points<input id="scoreDelta" class="score-input" type="number" step="1" min="1" max="100000" value="100" required></label><div class="score-decisions"><button id="scoreAddBtn" class="correct" type="submit" data-direction="1">ADD +100 points</button><button id="scoreDeductBtn" class="wrong" type="submit" data-direction="-1">DEDUCT −100 points</button></div></form></div></dialog>
+<dialog id="confirmDialog" class="modal confirm-modal" aria-labelledby="confirmTitle"><div class="modal-inner"><h2 id="confirmTitle"></h2><p id="confirmText"></p><div class="confirm-actions"><button id="confirmCancelBtn" class="quiet">Cancel</button><button id="confirmOkBtn" class="primary">Confirm</button></div></div></dialog>
+<div id="toast" class="toast" role="status" hidden></div>
+<script id="quiz-bank" type="application/json">
+[
+  {
+    "id": "scams_a",
+    "title": "Scam Me If You Can",
+    "clues": [
+      {
+        "question": "What is phishing carried out through SMS text messages called?",
+        "answer": "Smishing",
+        "note": "Accept SMS phishing or text-message phishing."
+      },
+      {
+        "question": "What is phishing carried out through voice calls called?",
+        "answer": "Vishing",
+        "note": "Accept voice phishing."
+      },
+      {
+        "question": "An attacker floods a victim with login approval notifications until they accept one. What is this attack commonly called?",
+        "answer": "MFA fatigue",
+        "note": "Accept MFA bombing, push bombing or push-notification fatigue."
+      },
+      {
+        "question": "Which three-letter acronym describes email scams that impersonate business contacts to redirect payments?",
+        "answer": "BEC",
+        "note": "Accept business email compromise."
+      },
+      {
+        "question": "In the Rimasauskas fraud against Google and Facebook, which Taiwanese hardware manufacturer was impersonated?",
+        "answer": "Quanta Computer",
+        "note": "Accept Quanta."
+      }
+    ]
+  },
+  {
+    "id": "malware_a",
+    "title": "Malware Mixtape",
+    "clues": [
+      {
+        "question": "What type of malicious program pretends to be legitimate software and is named after a trick from Greek mythology?",
+        "answer": "Trojan horse",
+        "note": "Accept Trojan."
+      },
+      {
+        "question": "Which 2000 email worm spread through an attachment named LOVE-LETTER-FOR-YOU.TXT.vbs?",
+        "answer": "ILOVEYOU",
+        "note": "Accept the Love Bug or Love Letter worm."
+      },
+      {
+        "question": "Which botnet used compromised internet-connected devices in the October 2016 attack on DNS provider Dyn?",
+        "answer": "Mirai",
+        "note": "Require Mirai; a generic botnet or DDoS answer is insufficient."
+      },
+      {
+        "question": "Which 1999 Microsoft Word macro virus emailed itself to contacts in the victim's Outlook address book?",
+        "answer": "Melissa",
+        "note": "Accept the Melissa virus."
+      },
+      {
+        "question": "Which 1989 ransomware was created by Joseph Popp and distributed on floppy disks?",
+        "answer": "AIDS Trojan",
+        "note": "Also accept PC Cyborg or AIDS virus."
+      }
+    ]
+  },
+  {
+    "id": "tools_a",
+    "title": "The Tool Shed",
+    "clues": [
+      {
+        "question": "Which network protocol analyzer, known for its shark-fin logo, lets you capture and inspect packets?",
+        "answer": "Wireshark",
+        "note": "Require Wireshark."
+      },
+      {
+        "question": "Which penetration-testing framework maintained by Rapid7 has a commercial edition called Pro?",
+        "answer": "Metasploit",
+        "note": "Accept Metasploit Framework or Metasploit Pro."
+      },
+      {
+        "question": "Which search engine, created by John Matherly, specializes in finding internet-connected devices such as webcams and routers?",
+        "answer": "Shodan",
+        "note": "Require Shodan; the product name is requested."
+      },
+      {
+        "question": "Which software reverse-engineering tool did the U.S. National Security Agency release publicly in 2019?",
+        "answer": "Ghidra",
+        "note": "Accept Ghidra only."
+      },
+      {
+        "question": "Which memory-forensics framework includes the windows.pslist plugin for examining RAM images?",
+        "answer": "Volatility",
+        "note": "Accept Volatility 3."
+      }
+    ]
+  },
+  {
+    "id": "ai_a",
+    "title": "Robots Need Supervision",
+    "clues": [
+      {
+        "question": "What term describes realistic AI-generated video or audio that imitates a real person?",
+        "answer": "Deepfake",
+        "note": "Accept deep fake or deepfake media."
+      },
+      {
+        "question": "What does LLM stand for in the context of AI chatbots?",
+        "answer": "Large language model",
+        "note": "Accept the plural large language models."
+      },
+      {
+        "question": "An AI assistant follows malicious instructions hidden in a web page it was asked to summarize. What type of prompt injection is this?",
+        "answer": "Indirect prompt injection",
+        "note": "Require indirect; prompt injection alone is too broad."
+      },
+      {
+        "question": "What term describes deliberately bypassing an AI model's safety restrictions to obtain disallowed responses?",
+        "answer": "Jailbreaking",
+        "note": "Accept jailbreak or an AI jailbreak."
+      },
+      {
+        "question": "What attack repeatedly queries a machine-learning model to build a substitute that imitates its behavior?",
+        "answer": "Model extraction",
+        "note": "Accept model stealing or model theft."
+      }
+    ]
+  },
+  {
+    "id": "culture_a",
+    "title": "Pop Culture Patch",
+    "clues": [
+      {
+        "question": "In The Matrix, what colour is the pill that lets Neo learn the truth?",
+        "answer": "Red",
+        "note": "Accept red pill."
+      },
+      {
+        "question": "Which Ubisoft game series introduced the vigilante hacker Aiden Pearce?",
+        "answer": "Watch Dogs",
+        "note": "Accept Watch_Dogs or Watchdogs."
+      },
+      {
+        "question": "In Mr. Robot, which hacker collective operates from a Coney Island arcade?",
+        "answer": "fsociety",
+        "note": "Accept F Society; capitalization does not matter."
+      },
+      {
+        "question": "Who wrote the cyberpunk novel Neuromancer?",
+        "answer": "William Gibson",
+        "note": "Accept Gibson."
+      },
+      {
+        "question": "Which Swedish band recorded music as the fictional band SAMURAI in Cyberpunk 2077?",
+        "answer": "Refused",
+        "note": "Accept Refused only; SAMURAI is the fictional band named in the question."
+      }
+    ]
+  },
+  {
+    "id": "trust_b",
+    "title": "Trust Issues",
+    "clues": [
+      {
+        "question": "What is watching over someone's shoulder to steal a password or PIN called?",
+        "answer": "Shoulder surfing",
+        "note": "Accept shouldering."
+      },
+      {
+        "question": "An attacker leaves a tempting USB drive in a car park, hoping someone plugs it in. What social-engineering technique is this?",
+        "answer": "Baiting",
+        "note": "Also accept a USB drop attack."
+      },
+      {
+        "question": "What is searching discarded rubbish for passwords or confidential documents called?",
+        "answer": "Dumpster diving",
+        "note": "Accept trash diving or bin diving."
+      },
+      {
+        "question": "What social-engineering technique invents a believable scenario or identity to persuade someone to disclose sensitive information?",
+        "answer": "Pretexting",
+        "note": "Accept a pretexting attack."
+      },
+      {
+        "question": "A toy whistle from Cap'n Crunch cereal boxes could mimic a telephone control tone. What was its frequency in hertz?",
+        "answer": "2600 Hz",
+        "note": "Accept 2600, 2,600 hertz or 2.6 kilohertz."
+      }
+    ]
+  },
+  {
+    "id": "breaches_b",
+    "title": "Oops It Happened Again",
+    "clues": [
+      {
+        "question": "Which film studio was hacked in 2014 ahead of the release of The Interview?",
+        "answer": "Sony Pictures",
+        "note": "Accept Sony or Sony Pictures Entertainment."
+      },
+      {
+        "question": "Which worm discovered in 2010 targeted Iran’s uranium-enrichment centrifuges?",
+        "answer": "Stuxnet",
+        "note": "Accept Stuxnet only."
+      },
+      {
+        "question": "Which U.S. credit-reporting company suffered a major 2017 breach involving an unpatched Apache Struts vulnerability?",
+        "answer": "Equifax",
+        "note": "Accept Equifax only."
+      },
+      {
+        "question": "What was the nickname of the 2014 OpenSSL vulnerability that could expose chunks of process memory?",
+        "answer": "Heartbleed",
+        "note": "Accept Heartbleed only."
+      },
+      {
+        "question": "Which ransomware family was used in the May 2021 attack on Ireland's Health Service Executive?",
+        "answer": "Conti",
+        "note": "Accept Conti ransomware."
+      }
+    ]
+  },
+  {
+    "id": "secrets_b",
+    "title": "Secrets and Keys",
+    "clues": [
+      {
+        "question": "What type of encryption uses the same secret key for encryption and decryption?",
+        "answer": "Symmetric encryption",
+        "note": "Accept symmetric-key encryption or symmetric cryptography."
+      },
+      {
+        "question": "What is the random value stored with a password hash to make identical passwords hash differently called?",
+        "answer": "Salt",
+        "note": "Accept a salt. Pepper is a separate secret."
+      },
+      {
+        "question": "Which four-letter acronym names one-time passwords generated from a shared secret and the current time?",
+        "answer": "TOTP",
+        "note": "Accept time-based one-time password."
+      },
+      {
+        "question": "Which network authentication protocol takes its name from the three-headed dog in Greek mythology?",
+        "answer": "Kerberos",
+        "note": "Accept Kerberos. Cerberus names the creature but not the protocol."
+      },
+      {
+        "question": "The SHAttered research project demonstrated a practical collision against which hash algorithm in 2017?",
+        "answer": "SHA-1",
+        "note": "Accept SHA1 or SHA one; SHA alone is insufficient."
+      }
+    ]
+  },
+  {
+    "id": "tools_b",
+    "title": "Tools with Attitude",
+    "clues": [
+      {
+        "question": "Which network-scanning tool has a name that abbreviates Network Mapper?",
+        "answer": "Nmap",
+        "note": "Accept Nmap only."
+      },
+      {
+        "question": "Which command-line transfer tool, maintained by Daniel Stenberg, transfers data using URLs and has a four-letter name?",
+        "answer": "curl",
+        "note": "Accept cURL."
+      },
+      {
+        "question": "Which Windows credential-extraction tool was created by Benjamin Delpy, also known as gentilkiwi?",
+        "answer": "Mimikatz",
+        "note": "Accept Mimikatz only."
+      },
+      {
+        "question": "Which Microsoft Sysinternals tool combines live file-system, Registry and process activity in one view?",
+        "answer": "Process Monitor",
+        "note": "Accept Procmon. Process Explorer is a different tool."
+      },
+      {
+        "question": "Which Python framework for binary analysis and symbolic execution has a four-letter name?",
+        "answer": "angr",
+        "note": "Accept angr regardless of capitalization."
+      }
+    ]
+  },
+  {
+    "id": "legends_b",
+    "title": "Legends of the Keyboard",
+    "clues": [
+      {
+        "question": "Which Las Vegas hacker conference shares its name with a military readiness scale?",
+        "answer": "DEF CON",
+        "note": "Accept DEFCON or Def Con."
+      },
+      {
+        "question": "Which IBM chess computer defeated Garry Kasparov in a six-game match in 1997?",
+        "answer": "Deep Blue",
+        "note": "Accept IBM Deep Blue."
+      },
+      {
+        "question": "What is the name of the AI character who runs the tests in the original Portal game?",
+        "answer": "GLaDOS",
+        "note": "Accept Glados; spelling and capitalization do not matter when spoken."
+      },
+      {
+        "question": "In the film Hackers, what hacker alias did Dade Murphy use as a child before using Crash Override?",
+        "answer": "Zero Cool",
+        "note": "Accept ZeroCool. Crash Override is already supplied in the question."
+      },
+      {
+        "question": "Which astronomer wrote The Cuckoo's Egg after a 75-cent accounting discrepancy led him to investigate a hacker?",
+        "answer": "Clifford Stoll",
+        "note": "Accept Cliff Stoll or Stoll."
+      }
+    ]
+  }
+]
+</script>
+<script id="quiz-engine">
+/* Pure game rules; old backup fields are ignored when restoring a saved game. */
+const CyberQuizCore = (() => {
+ const copy=value=>JSON.parse(JSON.stringify(value));
+ const key=(category,row)=>category+':'+row;
+ const penalty=value=>Math.round(value*0.33);
+ function create(bank,selected=bank.slice(0,5).map(c=>c.id)){return {version:1,contentRevision:10,bank:copy(bank),selected:[...selected],teams:Array.from({length:4},(_,i)=>({name:'Team '+(i+1),score:0})),completed:[],active:null};}
+ function open(state,category,row){
+  const id=key(category,row);
+  if(!state.selected.includes(category)||!Number.isInteger(row)||row<0||row>4)throw Error('Invalid question.');
+  if(state.completed.includes(id))throw Error('This question is already answered.');
+  if(state.active){if(state.active.key!==id)throw Error('Finish the current question before opening another.');return;}
+  state.active={key:id,category,row,value:(row+1)*100,wrongTeams:[]};
+ }
+ function complete(state){if(!state.active)throw Error('No active question.');state.completed.push(state.active.key);state.active=null;}
+ function judge(state,index,correct){
+  const question=state.active;if(!question)throw Error('No active question.');
+  if(!Number.isInteger(index)||index<0||index>3)throw Error('Invalid team.');
+  if(question.wrongTeams.includes(index))throw Error('This team already attempted the question.');
+  const delta=correct?question.value:-penalty(question.value);
+  state.teams[index].score+=delta;
+  if(correct)complete(state);
+  else {question.wrongTeams.push(index);if(question.wrongTeams.length>=2)complete(state);}
+  return delta;
+ }
+ function finish(state){complete(state);return 0;}
+ function adjust(state,index,delta){if(!Number.isInteger(index)||index<0||index>3||!Number.isInteger(delta)||Math.abs(delta)>100000)throw Error('Enter a whole-number adjustment between −100000 and +100000.');state.teams[index].score+=delta;}
+ function reset(state){state.teams.forEach(team=>team.score=0);state.completed=[];state.active=null;}
+ function validate(input){
+  const fail=()=>{throw Error('This is not a valid Cyber Quiz backup.');};
+  if(!input||input.version!==1||!Array.isArray(input.bank)||input.bank.length<5||input.bank.length>30)fail();
+  if(input.contentRevision!==undefined&&(!Number.isInteger(input.contentRevision)||input.contentRevision<0||input.contentRevision>10))fail();
+  const ids=new Set(),str=(s,max,empty=false)=>typeof s==='string'&&s.length<=max&&(empty||s.trim().length>0);
+  const bank=input.bank.map(category=>{if(!category||!str(category.id,50)||!/^[a-z0-9_-]+$/.test(category.id)||ids.has(category.id)||!str(category.title,70)||!Array.isArray(category.clues)||category.clues.length!==5)fail();ids.add(category.id);return {id:category.id,title:category.title,clues:category.clues.map(q=>{if(!q||!str(q.question,700)||!str(q.answer??'',200,true)||!str(q.note??'',500,true))fail();return {question:q.question,answer:q.answer??'',note:q.note??''};})};});
+  if(!Array.isArray(input.selected)||input.selected.length!==5||new Set(input.selected).size!==5||input.selected.some(id=>!ids.has(id)))fail();
+  if(!Array.isArray(input.teams)||input.teams.length!==4)fail();
+  const teams=input.teams.map(team=>{if(!team||!str(team.name,35)||!Number.isSafeInteger(team.score)||Math.abs(team.score)>100000000)fail();return {name:team.name,score:team.score};});
+  const isTeam=team=>Number.isInteger(team)&&team>=0&&team<=3;
+  const validKeys=new Set(input.selected.flatMap(id=>Array.from({length:5},(_,row)=>key(id,row))));
+  if(!Array.isArray(input.completed)||new Set(input.completed).size!==input.completed.length||input.completed.some(k=>!validKeys.has(k)))fail();
+  let active=null;
+  if(input.active!==null){const a=input.active;if(!a||!Number.isInteger(a.row)||a.row<0||a.row>4||!input.selected.includes(a.category)||a.key!==key(a.category,a.row)||input.completed.includes(a.key)||a.value!==(a.row+1)*100||!Array.isArray(a.wrongTeams)||a.wrongTeams.length>1||a.wrongTeams.some(team=>!isTeam(team))||new Set(a.wrongTeams).size!==a.wrongTeams.length)fail();active={key:a.key,category:a.category,row:a.row,value:a.value,wrongTeams:[...a.wrongTeams]};}
+  return {version:1,contentRevision:input.contentRevision??0,bank,selected:[...input.selected],teams,completed:[...input.completed],active};
+ }
+ function upgrade(state,defaultBank){
+  state.contentRevision=10;return state;
+ }
+ return {copy,key,penalty,create,open,judge,finish,adjust,reset,validate,upgrade};
+})();
+</script>
+<script id="quiz-controller">
+(() => {
+ 'use strict';
+ const C=CyberQuizCore,$=id=>document.getElementById(id),storageKey='cyber-quiz.local.v2',defaultBank=JSON.parse($('quiz-bank').textContent);
+ const builtInSets={A:defaultBank.slice(0,5).map(c=>c.id),B:defaultBank.slice(5,10).map(c=>c.id)};
+ let state=C.create(defaultBank),history=[],toastTimeout,scoreTeam=0,draft=null,editingCategory=null,editingRow=0,confirmAction=null,questionView=null,answerVisible=false;
+ const escape=s=>String(s).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+ const fmt=n=>n.toLocaleString('en-US'),signed=n=>(n>=0?'+':'−')+fmt(Math.abs(n));
+ function toast(message){$('toast').textContent=message;$('toast').hidden=false;clearTimeout(toastTimeout);toastTimeout=setTimeout(()=>$('toast').hidden=true,4200);}
+ function persist(){try{localStorage.setItem(storageKey,JSON.stringify(state));$('storageWarning').hidden=true;}catch{$('storageWarning').hidden=false;}}
+ try {const saved=localStorage.getItem(storageKey);if(saved)state=C.upgrade(C.validate(JSON.parse(saved)),defaultBank);}catch{ $('storageWarning').hidden=false; }
+ function act(fn){const before=C.copy(state);try{const result=fn();history.push(before);if(history.length>60)history.shift();persist();render();return {ok:true,result};}catch(error){state=before;toast(error.message);return {ok:false};}}
+ function undo(){if(!history.length){toast('Nothing to undo yet.');return;}state=history.pop();answerVisible=false;persist();render();if(!state.active&&$('questionDialog').open)$('questionDialog').close();if(state.active){renderQuestion();}toast('Last action undone.');}
+ function teamColor(i){return 'var(--team'+i+')';}
+ function render(){
+  const done=state.completed.length,setName=Object.keys(builtInSets).find(letter=>JSON.stringify(state.selected)===JSON.stringify(builtInSets[letter]));$('progressText').textContent=(setName?'Set '+setName+' · ':'')+done+' / 25 answered';$('progressFill').style.width=(done/25*100)+'%';$('undoBtn').disabled=!history.length;
+  $('boardNotice').className='';
+  if(done===25){const max=Math.max(...state.teams.map(t=>t.score));const winners=state.teams.filter(t=>t.score===max).map(t=>t.name).join(' & ');$('boardNotice').textContent=(state.teams.filter(t=>t.score===max).length>1?'Tie: ':'Winner: ')+winners+' · '+fmt(max)+' points';$('boardNotice').className='game-over';}
+  else if(state.active){$('boardNotice').textContent='Question in play — click the highlighted tile to resume.';$('boardNotice').className='notice';}
+  else $('boardNotice').textContent='Choose a category and point value.';
+  let html=state.selected.map(id=>'<div class="category">'+escape(state.bank.find(c=>c.id===id).title)+'</div>').join('');
+  for(let row=0;row<5;row++)for(const id of state.selected){const k=C.key(id,row),done=state.completed.includes(k),live=state.active?.key===k,blocked=!!state.active&&!live,category=state.bank.find(c=>c.id===id);html+='<button class="clue'+(done?' completed':'')+(live?' live':'')+'" data-category="'+id+'" data-row="'+row+'" '+(done||blocked?'disabled ':'')+'aria-label="'+escape(category.title+', '+((row+1)*100)+' points'+(done?', answered':live?', in play':''))+'">'+((row+1)*100)+(done?'<span class="tile-check" aria-hidden="true">✓</span>':'')+(live?'<small>In play</small>':'')+'</button>';}
+  $('board').innerHTML=html;
+  $('scorebar').innerHTML=state.teams.map((team,i)=>'<article class="team-card" style="--team-color:'+teamColor(i)+'"><div class="team-heading"><span class="team-name" title="'+escape(team.name)+'">'+escape(team.name)+'</span><button class="score-adjust" data-score="'+i+'" aria-label="Add or deduct points for '+escape(team.name)+'">± Points</button></div><div class="team-score" aria-label="'+escape(team.name)+' score '+team.score+'">'+fmt(team.score)+'</div></article>').join('');
+  if($('questionDialog').open)renderQuestion();
+ }
+ function renderQuestion(){const a=state.active||questionView;if(!a)return;if(questionView?.key!==a.key)answerVisible=false;questionView=C.copy(a);const completed=state.completed.includes(a.key),category=state.bank.find(c=>c.id===a.category),question=category.clues[a.row],amount=a.value,deduction=C.penalty(amount),hasAnswer=!!question.answer.trim();
+  $('questionLabel').textContent=category.title+' / '+fmt(amount)+' points';$('questionText').textContent=question.question;
+  $('answerPanel').hidden=!answerVisible||!hasAnswer;$('answerText').textContent=answerVisible&&hasAnswer?question.answer:'';$('revealBtn').disabled=!hasAnswer;$('revealBtn').textContent=hasAnswer?(answerVisible?'Hide answer':'Show answer'):'Answer not set';$('revealBtn').setAttribute('aria-expanded',String(answerVisible&&hasAnswer));
+  $('questionText').className='question-text'+(answerVisible&&hasAnswer?' with-answer':'');$('judgeGrid').hidden=completed;
+  $('questionScoring').hidden=false;$('questionScoring').className='scoring-banner';
+  $('questionScoring').innerHTML='<div class="stakes-title">QUESTION SCORING</div><div class="stakes-row"><span class="stake-gain">CORRECT: GAIN +'+fmt(amount)+' POINTS</span><span class="stake-loss">WRONG: LOSE −'+fmt(deduction)+' POINTS (33%)</span><span class="stake-neutral">NO ANSWER: 0 POINTS</span></div>';
+  $('judgeGrid').innerHTML=state.teams.map((team,i)=>{const attempted=a.wrongTeams.includes(i),blocked=completed||attempted;return '<div class="judge-card" style="--team-color:'+teamColor(i)+'"><div class="judge-name">'+escape(team.name)+(attempted?' · attempted':'')+'</div><div class="judge-actions"><button class="correct" data-judge="correct" data-team="'+i+'" '+(blocked?'disabled':'')+'><span>CORRECT</span><strong>ADD +'+fmt(amount)+' points</strong></button><button class="wrong" data-judge="wrong" data-team="'+i+'" '+(blocked?'disabled':'')+'><span>WRONG / BUZZED NO ANSWER</span><strong>DEDUCT −'+fmt(deduction)+' points</strong></button></div></div>';}).join('');
+  $('finishBtn').textContent=completed?'Back to board':'No team answered · finish with 0 points';$('finishBtn').className='primary small';
+  $('questionHelp').style.color='var(--muted)';$('questionHelp').textContent=completed?'Question complete. Reveal the answer or return to the board.':a.wrongTeams.length?'One other team may steal.':'Passing before buzzing is free. A wrong answer or buzzing without an answer loses 33%.';
+ }
+ function closeQuestion(){if($('questionDialog').open)$('questionDialog').close();render();}
+ function confirm(title,message,button,action){confirmAction=action;$('confirmTitle').textContent=title;$('confirmText').textContent=message;$('confirmOkBtn').textContent=button;$('confirmDialog').showModal();}
+ $('board').addEventListener('click',event=>{const tile=event.target.closest('[data-category]');if(!tile)return;const existed=!!state.active;const action=existed?{ok:true}:act(()=>C.open(state,tile.dataset.category,Number(tile.dataset.row)));if(action.ok){renderQuestion();$('questionDialog').showModal();}});
+ $('scorebar').addEventListener('click',event=>{const score=event.target.closest('[data-score]');if(score){scoreTeam=Number(score.dataset.score);$('scoreTitle').textContent=state.teams[scoreTeam].name+' · adjust score';$('scoreDelta').value='100';updateScoreButtons();$('scoreDialog').showModal();$('scoreDelta').focus();$('scoreDelta').select();}});
+ $('judgeGrid').addEventListener('click',event=>{const button=event.target.closest('[data-judge]');if(!button||button.disabled||!state.active)return;const index=Number(button.dataset.team),name=state.teams[index].name;const result=act(()=>C.judge(state,index,button.dataset.judge==='correct'));if(result.ok){const message=name+' · '+(result.result>0?'GAINED ':result.result<0?'LOST ':'NO CHANGE · ')+fmt(Math.abs(result.result))+' points';toast(message);if(state.active){$('questionHelp').textContent=message+'. One other team may steal.';$('questionHelp').style.color=result.result<0?'var(--red)':'var(--muted)';}}});
+ $('finishBtn').onclick=()=>{if(!state.active){closeQuestion();return;}const result=act(()=>C.finish(state));if(result.ok)toast('Question finished · no score change.');};
+ $('revealBtn').onclick=()=>{if(!state.active&&!questionView)return;answerVisible=!answerVisible;renderQuestion();};
+ $('backBtn').onclick=closeQuestion;$('questionDialog').addEventListener('close',()=>{questionView=null;answerVisible=false;$('answerPanel').hidden=true;$('answerText').textContent='';render();});
+ $('undoBtn').onclick=undo;
+ $('fullscreenBtn').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else if(document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen();else toast('Use your browser’s fullscreen command (usually F11).');}catch{toast('Use your browser’s fullscreen command (usually F11).');}};
+ document.addEventListener('fullscreenchange',()=>{$('fullscreenBtn').textContent=document.fullscreenElement?'⛶ Exit fullscreen':'⛶ Fullscreen';});
+ $('fullResetBtn').onclick=()=>confirm('Reset the whole game?','This restores Set A, both built-in question banks, Team 1–4 names, zero scores and all 25 questions available. Your custom edits are removed. Undo can restore the previous game.','Reset everything',()=>{act(()=>{state=C.create(defaultBank);});if($('questionDialog').open)$('questionDialog').close();if($('setupDialog').open)$('setupDialog').close();if($('scoreDialog').open)$('scoreDialog').close();toast('Set A restored · all scores are zero.');});
+ $('helpBtn').onclick=()=>$('helpDialog').showModal();$('closeHelpBtn').onclick=()=>$('helpDialog').close();$('closeScoreBtn').onclick=()=>$('scoreDialog').close();
+ function updateScoreButtons(){const points=Number($('scoreDelta').value)||0;$('scoreAddBtn').textContent='ADD +'+fmt(points)+' points';$('scoreDeductBtn').textContent='DEDUCT −'+fmt(points)+' points';}
+ $('scoreDelta').oninput=updateScoreButtons;
+ $('scoreForm').onsubmit=event=>{event.preventDefault();const magnitude=Number($('scoreDelta').value);if(!Number.isInteger(magnitude)||magnitude<1||magnitude>100000){toast('Choose a whole number from 1 to 100000.');return;}const direction=event.submitter?.dataset.direction==='-1'?-1:1,amount=magnitude*direction,result=act(()=>C.adjust(state,scoreTeam,amount));if(result.ok){$('scoreDialog').close();toast(state.teams[scoreTeam].name+' · '+(amount>0?'ADDED ':'DEDUCTED ')+fmt(Math.abs(amount))+' points');}};
+ $('scoreDialog').addEventListener('click',event=>{const b=event.target.closest('[data-adjust]');if(b){$('scoreDelta').value=b.dataset.adjust;updateScoreButtons();}});
+ function saveEditor(){if(!draft||!editingCategory)return;const category=draft.bank.find(c=>c.id===editingCategory),clue=category.clues[editingRow];category.title=$('editTitle').value;clue.question=$('editQuestion').value;clue.answer=$('editAnswer').value;}
+ function loadEditor(){const category=draft.bank.find(c=>c.id===editingCategory),clue=category.clues[editingRow];$('editTitle').value=category.title;$('editQuestion').value=clue.question;$('editAnswer').value=clue.answer;}
+ function setupOpen(){if(state.active){toast('Finish the current question before editing the game.');return;}draft=C.copy(state);editingCategory=draft.selected[0];editingRow=0;
+  $('teamFields').innerHTML=draft.teams.map((t,i)=>'<label class="field">Team '+(i+1)+'<input data-team-name="'+i+'" maxlength="35" value="'+escape(t.name)+'"></label>').join('');
+  $('categoryFields').innerHTML=draft.selected.map((id,i)=>'<label class="field">Column '+(i+1)+'<select data-column="'+i+'">'+draft.bank.map(c=>'<option value="'+c.id+'" '+(c.id===id?'selected':'')+'>'+escape(c.title)+'</option>').join('')+'</select></label>').join('');
+  $('categoryFields').querySelectorAll('select').forEach(s=>s.disabled=state.completed.length>0);
+  $('editCategory').innerHTML=draft.bank.map(c=>'<option value="'+c.id+'">'+escape(c.title)+'</option>').join('');$('editCategory').value=editingCategory;$('editValue').value='0';$('setupValidation').textContent='';loadEditor();$('setupDialog').showModal();
+ }
+ $('setupBtn').onclick=setupOpen;$('closeSetupBtn').onclick=()=>$('setupDialog').close();$('editCategory').onchange=()=>{saveEditor();editingCategory=$('editCategory').value;loadEditor();};$('editValue').onchange=()=>{saveEditor();editingRow=Number($('editValue').value);loadEditor();};
+ function collectDraft(){saveEditor();draft.teams.forEach((t,i)=>t.name=$('teamFields').querySelector('[data-team-name="'+i+'"]').value.trim());draft.selected=Array.from($('categoryFields').querySelectorAll('select')).map(s=>s.value);return C.validate(draft);}
+ function applyDraft(){try{const edited=collectDraft();const result=act(()=>{state=edited;});if(result.ok){$('setupDialog').close();toast('Game changes saved.');return true;}}catch(error){$('setupValidation').textContent=new Set(draft.selected).size!==5?'Choose five different categories.':'Every team, category, question and answer needs text. Check the edited fields.';}return false;}
+ function startSet(letter){confirm('Start Set '+letter+'?','This loads 25 questions, restores both built-in question banks and resets scores and progress. Saved team names are kept. Question edits and unsaved changes are discarded. Undo can restore the previous game.','Start Set '+letter,()=>{const result=act(()=>{const names=state.teams.map(team=>team.name);state=C.create(defaultBank,builtInSets[letter]);state.teams.forEach((team,i)=>team.name=names[i]);});if(result.ok){$('setupDialog').close();toast('Set '+letter+' ready · all scores are zero.');}});}
+ $('loadSetABtn').onclick=()=>startSet('A');$('loadSetBBtn').onclick=()=>startSet('B');
+ $('saveSetupBtn').onclick=applyDraft;
+ $('resetBtn').onclick=()=>confirm('Restart this round?','This resets all four scores and completed questions. Existing saved team names and questions are kept. Unsaved edits in this window are discarded.','Restart round',()=>{act(()=>C.reset(state));$('setupDialog').close();toast('New game ready.');});
+ $('exportBtn').onclick=()=>{try{const backup=collectDraft();const blob=new Blob([JSON.stringify(backup,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download='Cyber_Quiz_Backup_'+new Date().toISOString().slice(0,10)+'.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('Backup exported, including your unsaved edits.');}catch{$('setupValidation').textContent='Complete the edited fields and choose five different categories before exporting.';}};
+ $('importBtn').onclick=()=>$('importInput').click();$('importInput').onchange=async event=>{const file=event.target.files[0];event.target.value='';if(!file)return;if(file.size>1000000){toast('Backup is too large. Use a Cyber Quiz JSON backup under 1 MB.');return;}try{const imported=C.upgrade(C.validate(JSON.parse(await file.text())),defaultBank);confirm('Import this game?','This replaces the current questions, scores and progress. Undo can restore the current game.','Import game',()=>{act(()=>{state=imported;});$('setupDialog').close();toast('Backup imported.');});}catch(error){toast(error.message==='This is not a valid Cyber Quiz backup.'?error.message:'Cannot read this backup. Choose a Cyber Quiz JSON file.');}};
+ $('confirmCancelBtn').onclick=()=>{confirmAction=null;$('confirmDialog').close();};$('confirmOkBtn').onclick=()=>{const action=confirmAction;confirmAction=null;$('confirmDialog').close();if(action)action();};$('confirmDialog').addEventListener('cancel',()=>confirmAction=null);
+ document.addEventListener('keydown',event=>{if(event.ctrlKey||event.metaKey||event.altKey||event.repeat)return;if(['INPUT','TEXTAREA','SELECT'].includes(event.target.tagName))return;const blocking=['setupDialog','helpDialog','scoreDialog','confirmDialog'].some(id=>$(id).open);if(blocking)return;const key=event.key.toLowerCase();if(key==='f'){event.preventDefault();$('fullscreenBtn').click();}else if(key==='u'){event.preventDefault();undo();}});
+ window.addEventListener('beforeunload',persist);persist();render();
+})();
+</script>
+</body>
+</html>
